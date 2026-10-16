@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://paodiariofamilia.github.io/pao-diario/sitemap.xml
+Sitemap: https://paodiarioemfamilia.com.br/sitemap.xml
