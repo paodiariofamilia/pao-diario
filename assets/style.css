@@ -83,7 +83,9 @@ img { max-width: 100%; }
 @media (prefers-reduced-motion: reduce) { .slide { transition: none; } }
 
 /* Conteúdo */
-main { padding-block: 40px 56px; display: flex; flex-direction: column; gap: 40px; }
+main { padding-block: 40px 56px; }
+main > .col { display: flex; flex-direction: column; gap: 40px; }
+main > .sheet { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: clamp(22px, 5vw, 40px); gap: 36px; }
 .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dawn); }
 .page-head { display: flex; flex-direction: column; gap: 6px; }
 h1 { font-family: var(--font-verse); font-weight: 600; font-size: clamp(30px, 6vw, 42px); line-height: 1.1; margin: 0; text-wrap: balance; }
@@ -130,35 +132,16 @@ blockquote cite { display: block; margin-top: 10px; font-family: var(--font-body
 
 /* Livros: lombadas tipográficas */
 .group { display: flex; flex-direction: column; gap: 14px; }
-.books { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
-.book { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; gap: 18px; align-items: flex-start; min-width: 0; }
-.book-txt { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.books { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.book { padding: 16px 0 16px 20px; border-bottom: 1px solid var(--line); position: relative; min-width: 0; }
+.book::before { content: ""; position: absolute; left: 0; top: 20px; bottom: 20px; width: 3px; border-radius: 2px; background: var(--dawn); }
+.book-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .book h3 { margin: 0; font-family: var(--font-verse); font-size: 21px; font-weight: 600; line-height: 1.2; text-wrap: balance; }
 .book .by { font-size: 14px; font-weight: 700; color: var(--muted); }
-.book p { margin: 4px 0 0; font-size: 15px; line-height: 1.55; }
-
-/* Capas originais: cor e símbolo por grupo, título tipográfico */
-.cover {
-  flex: none; width: 112px; aspect-ratio: 2 / 3; max-width: 100%;
-  background: var(--cv-bg); color: var(--cv-ac);
-  border-radius: 3px 8px 8px 3px; position: relative; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: flex-start; gap: 6px;
-  padding: 14px 10px 10px 16px;
-  box-shadow: 0 1px 2px rgba(15, 20, 30, .18), 0 8px 18px -8px rgba(15, 20, 30, .45);
-  transform: rotate(-1.2deg); transition: transform .25s ease;
-}
-.book:nth-child(even) .cover { transform: rotate(1deg); }
-.book:hover .cover { transform: rotate(0) translateY(-2px); }
-.cover::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: rgba(0, 0, 0, .22); box-shadow: 1px 0 0 rgba(255, 255, 255, .12); }
-.cover::after { content: ""; position: absolute; left: 16px; right: 10px; top: 10px; height: 1px; background: currentColor; opacity: .5; }
-.cover-t { font-family: var(--font-verse); font-weight: 600; font-size: 14px; line-height: 1.12; color: #fbf6ee; text-wrap: balance; position: relative; z-index: 1; margin-top: 4px; }
-.cover-a { font-size: 8.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: currentColor; position: relative; z-index: 1; }
-.cover-art { position: absolute; left: 10px; right: 4px; bottom: 6px; width: calc(100% - 14px); height: auto; opacity: .95; }
-@media (prefers-reduced-motion: reduce) { .cover, .book:nth-child(even) .cover, .book:hover .cover { transition: none; transform: none; } }
-@media (max-width: 420px) { .books { grid-template-columns: 1fr; } .cover { width: 92px; } .cover-t { font-size: 12px; } }
+.book p { margin: 6px 0 0; font-size: 15px; line-height: 1.55; max-width: 62ch; }
 
 .links { display: flex; flex-direction: column; gap: 12px; }
-.link { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; text-decoration: none; display: flex; flex-direction: column; gap: 2px; }
+.link { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; text-decoration: none; display: flex; flex-direction: column; gap: 2px; }
 .link:hover { border-color: var(--dawn); }
 .link strong { font-size: 17px; }
 .link .host { font-size: 13px; color: var(--dawn); font-weight: 700; }
@@ -168,8 +151,9 @@ blockquote cite { display: block; margin-top: 10px; font-family: var(--font-body
 .prose p { margin: 0 0 14px; max-width: 62ch; }
 
 /* Rodapé */
-footer.site { border-top: 1px solid var(--line); padding-block: 28px 40px; font-size: 14px; color: var(--muted); }
+footer.site { background: var(--band); color: var(--band-muted); padding-block: 32px max(40px, env(safe-area-inset-bottom, 0px)); font-size: 14px; }
 footer.site .col { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 footer.site nav { display: flex; flex-wrap: wrap; gap: 4px 16px; }
-footer.site a { text-decoration: none; }
+footer.site a { text-decoration: none; color: var(--band-ink); }
 footer.site a:hover { color: var(--dawn); }
+footer.site :focus-visible { outline-color: var(--dawn); }

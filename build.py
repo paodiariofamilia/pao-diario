@@ -41,7 +41,7 @@ def msg_path(m): return f"mensagens/{m['data']}/"
 ICONE = '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 22h24" stroke-linecap="round"/><path d="M9 22a7 7 0 0 1 14 0"/><path d="M16 8v3M8.2 11.2l2 2M23.8 11.2l-2 2M5 16.5h2.5M27 16.5h-2.5" stroke-linecap="round"/></svg>'
 MENU = [("", "Início"), ("mensagens/", "Mensagens"), ("livros/", "Livros"), ("links/", "Links úteis"), ("sobre/", "Sobre")]
 
-def layout(path, titulo, descricao, corpo, *, atual="", og_tipo="website", og_img=None, jsonld=None, faixa=""):
+def layout(path, titulo, descricao, corpo, *, atual="", og_tipo="website", og_img=None, jsonld=None, faixa="", folha=True):
     titulo_full = NOME if titulo == NOME else f"{titulo} · {NOME}"
     og_img = og_img or abs_("assets/og.png")
     nav = "".join(f'<li><a href="{p(h)}"{" aria-current=\"page\"" if h == atual else ""}>{e(t)}</a></li>' for h, t in MENU)
@@ -86,7 +86,7 @@ def layout(path, titulo, descricao, corpo, *, atual="", og_tipo="website", og_im
   </div>
 </header>
 {faixa}
-<main id="conteudo" class="gutter"><div class="col" style="display:flex;flex-direction:column;gap:40px">
+<main id="conteudo" class="gutter"><div class="col{' sheet' if folha else ''}">
 {corpo}
 </div></main>
 <footer class="site gutter"><div class="col">
@@ -197,28 +197,6 @@ def og_image(dest, titulo, verso, ref):
     os.makedirs(os.path.dirname(dest), exist_ok=True); img.save(dest, optimize=True)
     return True
 
-# ---------- capas originais dos livros ----------
-CORES_CAPA = [("#22324a", "#e0a35a"), ("#3d4f3a", "#e9d8a6"), ("#6b2d3a", "#f0c9a0"), ("#8a5a1f", "#f7ead2"),
-              ("#2f4858", "#9fd0c7"), ("#4a3b5c", "#e8c27a"), ("#1f3d3a", "#f2b880")]
-MOTIVOS = [
-    # amanhecer
-    '<path d="M8 78h84"/><path d="M28 78a22 22 0 0 1 44 0"/><path d="M50 44v8M30 52l5 5M70 52l-5 5M18 66h6M76 66h6"/>',
-    # caminho
-    '<path d="M8 50c20-6 30 4 46-2s26-8 38-4"/><path d="M38 96c4-18 22-22 16-34s-2-14 4-14"/><path d="M62 96c-2-14 10-20 4-32s0-16 4-16" opacity=".55"/>',
-    # livro aberto
-    '<path d="M50 40c-10-6-24-8-36-6v44c12-2 26 0 36 6 10-6 24-8 36-6V34c-12-2-26 0-36 6z"/><path d="M50 40v44"/><path d="M22 48c7-1 14 0 20 3M22 58c7-1 14 0 20 3M58 51c6-3 13-4 20-3M58 61c6-3 13-4 20-3" opacity=".6"/>',
-    # casa
-    '<path d="M18 54 50 28l32 26"/><path d="M26 48v34h48V48"/><path d="M44 82V66h12v16"/><path d="M50 42c-2-3-7-3-7 1 0 3 7 7 7 7s7-4 7-7c0-4-5-4-7-1z" opacity=".8"/>',
-    # estrelas
-    '<path d="M30 36l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path d="M66 58l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/><path d="M70 22l1.5 4 4 1.5-4 1.5L70 33l-1.5-4-4-1.5 4-1.5z"/><path d="M14 84h72" opacity=".5"/>',
-]
-def capa(b, grupo, n):
-    bg, ac = CORES_CAPA[n % len(CORES_CAPA)]
-    motivo = MOTIVOS[grupo % len(MOTIVOS)]
-    return (f'<div class="cover" style="--cv-bg:{bg};--cv-ac:{ac}" aria-hidden="true">'
-            f'<svg class="cover-art" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">{motivo}</svg>'
-            f'<span class="cover-t">{e(b["titulo"])}</span><span class="cover-a">{e(b["autor"])}</span></div>')
-
 # ---------- páginas ----------
 def limpar_gerados():
     pasta = os.path.join(RAIZ, "mensagens")
@@ -236,7 +214,7 @@ def main():
 <section><h2 class="sec">Mensagens anteriores</h2>{lista(msgs[1:8]) or '<p class="note">As próximas mensagens aparecem aqui todos os dias às 6h.</p>'}<a class="more" href="{p('mensagens/')}">Ver todas as mensagens</a></section>"""
     else:
         corpo = '<div class="page-head"><h1>A primeira mensagem chega amanhã às 6h</h1></div>'
-    gravar("index.html", layout("", NOME, SITE["descricao"], corpo, atual="", jsonld=[ld_site()], faixa=faixa_slides()))
+    gravar("index.html", layout("", NOME, SITE["descricao"], corpo, atual="", jsonld=[ld_site()], faixa=faixa_slides(), folha=False))
 
     # Uma página por mensagem
     for i, m in enumerate(msgs):
@@ -251,7 +229,7 @@ def main():
 {pager}"""
         tem_og = og_image(os.path.join(RAIZ, msg_path(m), "og.png"), m["titulo"], m["versiculo"], m["referencia"])
         gravar(msg_path(m) + "index.html", layout(msg_path(m), f"{m['titulo']} ({m['referencia']})", desc_msg(m), corpo,
-               atual="mensagens/", og_tipo="article", og_img=abs_(msg_path(m) + "og.png") if tem_og else None,
+               atual="mensagens/", og_tipo="article", og_img=abs_(msg_path(m) + "og.png") if tem_og else None, folha=False,
                jsonld=[ld_artigo(m), ld_trilha([("Início", ""), ("Mensagens", "mensagens/"), (m["titulo"], msg_path(m))])]))
 
     # Arquivo
@@ -266,7 +244,7 @@ def main():
     for gi, g in enumerate(livros):
         cards = ""
         for b in g["itens"]:
-            cards += f'<article class="book">{capa(b, gi, n)}<div class="book-txt"><h3>{e(b["titulo"])}</h3><span class="by">{e(b["autor"])}</span><p>{e(b["nota"])}</p></div></article>'
+            cards += f'<article class="book"><div class="book-txt"><h3>{e(b["titulo"])}</h3><span class="by">{e(b["autor"])}</span><p>{e(b["nota"])}</p></div></article>'
             n += 1
         grupos += f'<section class="group"><h2 class="sec">{e(g["grupo"])}</h2><div class="books">{cards}</div></section>'
     corpo = f"""<div class="page-head"><span class="eyebrow">Leitura recomendada</span><h1>Livros para crescer na fé</h1><p class="lead">Obras de referência e clássicos cristãos para ler sozinho, a dois ou em família. Indicações sem patrocínio.</p></div>
