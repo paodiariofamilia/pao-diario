@@ -1,0 +1,32 @@
+[
+  {
+    "grupo": "Ler a Bíblia",
+    "itens": [
+      {
+        "nome": "Bíblia Online",
+        "url": "https://www.bibliaonline.com.br",
+        "nota": "Leitura e busca por palavra em várias traduções em português, inclusive a Almeida Revista e Corrigida."
+      },
+      {
+        "nome": "YouVersion (Bible.com)",
+        "url": "https://www.bible.com/pt",
+        "nota": "Aplicativo gratuito com planos de leitura, áudio e versículo do dia. Tem versão para crianças."
+      }
+    ]
+  },
+  {
+    "grupo": "Estudar",
+    "itens": [
+      {
+        "nome": "BibleProject em português",
+        "url": "https://bibleproject.com/portugues/",
+        "nota": "Vídeos animados curtos que explicam cada livro da Bíblia. Ótimos para assistir em família."
+      },
+      {
+        "nome": "Sociedade Bíblica do Brasil",
+        "url": "https://www.sbb.org.br",
+        "nota": "Responsável pela tradução e distribuição da Bíblia no Brasil, com conteúdos sobre as traduções e a história do texto bíblico."
+      }
+    ]
+  }
+]

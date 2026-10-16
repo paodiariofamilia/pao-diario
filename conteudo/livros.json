@@ -1,0 +1,92 @@
+[
+  {
+    "grupo": "Para começar",
+    "itens": [
+      {
+        "titulo": "Cristianismo Puro e Simples",
+        "autor": "C. S. Lewis",
+        "nota": "Uma explicação clara e acessível do que os cristãos creem. Ótimo para quem está começando ou quer conversar sobre fé com amigos."
+      },
+      {
+        "titulo": "Cristianismo Básico",
+        "autor": "John Stott",
+        "nota": "Apresenta quem é Jesus e o que significa segui-lo, em linguagem direta e com base nas Escrituras."
+      },
+      {
+        "titulo": "Maravilhosa Graça",
+        "autor": "Philip Yancey",
+        "nota": "Histórias e reflexões sobre o perdão e a graça de Deus no dia a dia."
+      }
+    ]
+  },
+  {
+    "grupo": "Clássicos da fé",
+    "itens": [
+      {
+        "titulo": "Confissões",
+        "autor": "Agostinho de Hipona",
+        "nota": "A história de conversão mais lida da história da Igreja, escrita em forma de oração."
+      },
+      {
+        "titulo": "O Peregrino",
+        "autor": "John Bunyan",
+        "nota": "Alegoria da vida cristã como uma viagem. Pode ser lido em voz alta com toda a família."
+      },
+      {
+        "titulo": "Discipulado",
+        "autor": "Dietrich Bonhoeffer",
+        "nota": "Reflexão profunda sobre o Sermão do Monte e o custo de seguir a Cristo."
+      }
+    ]
+  },
+  {
+    "grupo": "Teologia de referência",
+    "itens": [
+      {
+        "titulo": "O Conhecimento de Deus",
+        "autor": "J. I. Packer",
+        "nota": "Sobre os atributos de Deus e como conhecê-lo de forma pessoal, unindo estudo e devoção."
+      },
+      {
+        "titulo": "Teologia Sistemática",
+        "autor": "Wayne Grudem",
+        "nota": "Obra de consulta organizada por temas, com linguagem acessível e muitas referências bíblicas."
+      }
+    ]
+  },
+  {
+    "grupo": "Família e casamento",
+    "itens": [
+      {
+        "titulo": "Vida em Comunhão",
+        "autor": "Dietrich Bonhoeffer",
+        "nota": "Pequeno livro sobre a vida cristã compartilhada: oração, leitura bíblica e convivência em comunidade e em casa."
+      },
+      {
+        "titulo": "O Significado do Casamento",
+        "autor": "Timothy Keller",
+        "nota": "O casamento à luz da Bíblia, com conselhos práticos para casais em qualquer fase."
+      },
+      {
+        "titulo": "As Cinco Linguagens do Amor",
+        "autor": "Gary Chapman",
+        "nota": "Ajuda a entender como cada pessoa da família demonstra e recebe amor."
+      },
+      {
+        "titulo": "Pastoreando o Coração da Criança",
+        "autor": "Tedd Tripp",
+        "nota": "Orientação bíblica para pais que querem educar os filhos olhando para o coração, não só para o comportamento."
+      }
+    ]
+  },
+  {
+    "grupo": "Para as crianças",
+    "itens": [
+      {
+        "titulo": "Você é Especial",
+        "autor": "Max Lucado",
+        "nota": "Fábula ilustrada sobre o valor que cada criança tem aos olhos de Deus."
+      }
+    ]
+  }
+]
