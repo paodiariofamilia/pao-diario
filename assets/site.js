@@ -17,7 +17,6 @@
     var dotsWrap = box.querySelector('.dots');
     var live = box.querySelector('[aria-live]');
     var i = 0, timer = null;
-    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     var dots = slides.map(function (s, n) {
       var d = document.createElement('button');
       d.type = 'button';
@@ -32,12 +31,14 @@
       dots.forEach(function (d, k) { d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
     }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function restart() { stop(); if (!reduce) timer = setInterval(function () { go(i + 1); }, 7000); }
+    function restart() { stop(); timer = setInterval(function () { go(i + 1); }, 30000); }
     box.querySelector('[data-prev]').addEventListener('click', function () { go(i - 1); restart(); if (live) live.textContent = slides[i].textContent; });
     box.querySelector('[data-next]').addEventListener('click', function () { go(i + 1); restart(); if (live) live.textContent = slides[i].textContent; });
-    box.addEventListener('mouseenter', stop);
-    box.addEventListener('mouseleave', restart);
-    box.addEventListener('focusin', stop);
+    // pausa só com o mouse em cima (no celular o toque não pausa)
+    box.addEventListener('pointerenter', function (ev) { if (ev.pointerType === 'mouse') stop(); });
+    box.addEventListener('pointerleave', function (ev) { if (ev.pointerType === 'mouse') restart(); });
+    // pausa enquanto alguém navega pelo teclado dentro do carrossel
+    box.addEventListener('focusin', function (ev) { try { if (ev.target.matches(':focus-visible')) stop(); } catch (err) {} });
     box.addEventListener('focusout', restart);
     // começa em uma passagem diferente a cada dia
     var day = Math.floor(Date.now() / 86400000);
