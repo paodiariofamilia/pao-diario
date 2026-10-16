@@ -95,6 +95,9 @@ h2.sec { font-family: var(--font-verse); font-weight: 600; font-size: 24px; marg
 .day { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: clamp(22px, 5vw, 40px); display: flex; flex-direction: column; gap: 24px; }
 .day-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: baseline; }
 .date { font-size: 14px; font-weight: 600; color: var(--muted); }
+.day-when { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.liturgia { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); }
+.lit-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent); }
 .tag { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dawn); background: var(--dawn-soft); padding: 3px 10px; border-radius: 999px; }
 .day-title { font-family: var(--font-verse); font-weight: 600; font-size: clamp(26px, 5vw, 34px); line-height: 1.15; margin: 0; text-wrap: balance; }
 .day-title a { text-decoration: none; }

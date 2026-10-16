@@ -1,31 +1,36 @@
 [
   {
-    "grupo": "Ler a Bíblia",
+    "grupo": "Rezar com a Igreja",
     "itens": [
       {
-        "nome": "Bíblia Online",
-        "url": "https://www.bibliaonline.com.br",
-        "nota": "Leitura e busca por palavra em várias traduções em português, inclusive a Almeida Revista e Corrigida."
+        "nome": "Liturgia Diária – Canção Nova",
+        "url": "https://liturgia.cancaonova.com/pb/",
+        "nota": "As leituras da missa de cada dia, com o Evangelho, o salmo e a cor litúrgica. É daqui que vem o versículo das mensagens."
       },
       {
-        "nome": "YouVersion (Bible.com)",
-        "url": "https://www.bible.com/pt",
-        "nota": "Aplicativo gratuito com planos de leitura, áudio e versículo do dia. Tem versão para crianças."
+        "nome": "Bíblia Católica Online",
+        "url": "https://www.bibliacatolica.com.br",
+        "nota": "Leitura da Bíblia em traduções católicas, como a Ave-Maria, com busca por livro e capítulo."
       }
     ]
   },
   {
-    "grupo": "Estudar",
+    "grupo": "A Igreja no Brasil e no mundo",
     "itens": [
       {
-        "nome": "BibleProject em português",
-        "url": "https://bibleproject.com/portugues/",
-        "nota": "Vídeos animados curtos que explicam cada livro da Bíblia. Ótimos para assistir em família."
+        "nome": "Santa Sé (Vaticano)",
+        "url": "https://www.vatican.va/content/vatican/pt.html",
+        "nota": "Documentos do Papa, o Catecismo e os textos oficiais da Igreja em português."
       },
       {
-        "nome": "Sociedade Bíblica do Brasil",
-        "url": "https://www.sbb.org.br",
-        "nota": "Responsável pela tradução e distribuição da Bíblia no Brasil, com conteúdos sobre as traduções e a história do texto bíblico."
+        "nome": "Vatican News em português",
+        "url": "https://www.vaticannews.va/pt.html",
+        "nota": "Notícias do Papa e da Igreja no mundo, com o Evangelho do dia comentado."
+      },
+      {
+        "nome": "CNBB",
+        "url": "https://www.cnbb.org.br",
+        "nota": "Conferência Nacional dos Bispos do Brasil: notícias, campanhas e orientações da Igreja no Brasil."
       }
     ]
   }

@@ -1,56 +1,66 @@
 [
   {
-    "grupo": "Para começar",
+    "grupo": "Para conhecer a fé",
     "itens": [
       {
-        "titulo": "Cristianismo Puro e Simples",
-        "autor": "C. S. Lewis",
-        "nota": "Uma explicação clara e acessível do que os cristãos creem. Ótimo para quem está começando ou quer conversar sobre fé com amigos."
+        "titulo": "Catecismo da Igreja Católica",
+        "autor": "Santa Sé",
+        "nota": "A referência oficial do que a Igreja crê, celebra, vive e reza. Organizado por temas, bom para consultar sempre que surgir uma dúvida."
       },
       {
-        "titulo": "Cristianismo Básico",
-        "autor": "John Stott",
-        "nota": "Apresenta quem é Jesus e o que significa segui-lo, em linguagem direta e com base nas Escrituras."
+        "titulo": "YOUCAT – Catecismo Jovem da Igreja Católica",
+        "autor": "Conferência Episcopal Austríaca, com prefácio de Bento XVI",
+        "nota": "O Catecismo em perguntas e respostas curtas, com linguagem para jovens. Ótimo para os filhos adolescentes e para estudar em família."
       },
       {
-        "titulo": "Maravilhosa Graça",
-        "autor": "Philip Yancey",
-        "nota": "Histórias e reflexões sobre o perdão e a graça de Deus no dia a dia."
+        "titulo": "Introdução ao Cristianismo",
+        "autor": "Joseph Ratzinger (Bento XVI)",
+        "nota": "Uma explicação profunda e acessível do Credo, frase por frase."
       }
     ]
   },
   {
-    "grupo": "Clássicos da fé",
+    "grupo": "Clássicos espirituais",
     "itens": [
       {
         "titulo": "Confissões",
-        "autor": "Agostinho de Hipona",
+        "autor": "Santo Agostinho",
         "nota": "A história de conversão mais lida da história da Igreja, escrita em forma de oração."
       },
       {
-        "titulo": "O Peregrino",
-        "autor": "John Bunyan",
-        "nota": "Alegoria da vida cristã como uma viagem. Pode ser lido em voz alta com toda a família."
+        "titulo": "Imitação de Cristo",
+        "autor": "Tomás de Kempis",
+        "nota": "Pequenos capítulos para meditar um pouco a cada dia. Um dos livros mais lidos depois da Bíblia."
       },
       {
-        "titulo": "Discipulado",
-        "autor": "Dietrich Bonhoeffer",
-        "nota": "Reflexão profunda sobre o Sermão do Monte e o custo de seguir a Cristo."
+        "titulo": "Filoteia (Introdução à Vida Devota)",
+        "autor": "São Francisco de Sales",
+        "nota": "Mostra que a santidade é possível para todos, inclusive no trabalho e na vida de família."
+      },
+      {
+        "titulo": "História de uma Alma",
+        "autor": "Santa Teresinha do Menino Jesus",
+        "nota": "A autobiografia da santa da \"pequena via\": fazer as coisas simples do dia a dia com muito amor."
+      },
+      {
+        "titulo": "Ortodoxia",
+        "autor": "G. K. Chesterton",
+        "nota": "Um convertido conta, com bom humor, por que a fé cristã faz sentido."
       }
     ]
   },
   {
-    "grupo": "Teologia de referência",
+    "grupo": "Jesus e Nossa Senhora",
     "itens": [
       {
-        "titulo": "O Conhecimento de Deus",
-        "autor": "J. I. Packer",
-        "nota": "Sobre os atributos de Deus e como conhecê-lo de forma pessoal, unindo estudo e devoção."
+        "titulo": "Jesus de Nazaré",
+        "autor": "Joseph Ratzinger (Bento XVI)",
+        "nota": "Obra em três volumes sobre a vida de Jesus, do nascimento à ressurreição, unindo estudo da Escritura e oração."
       },
       {
-        "titulo": "Teologia Sistemática",
-        "autor": "Wayne Grudem",
-        "nota": "Obra de consulta organizada por temas, com linguagem acessível e muitas referências bíblicas."
+        "titulo": "Tratado da Verdadeira Devoção à Santíssima Virgem",
+        "autor": "São Luís Maria Grignion de Montfort",
+        "nota": "O clássico da consagração a Jesus pelas mãos de Maria."
       }
     ]
   },
@@ -58,34 +68,19 @@
     "grupo": "Família e casamento",
     "itens": [
       {
-        "titulo": "Vida em Comunhão",
-        "autor": "Dietrich Bonhoeffer",
-        "nota": "Pequeno livro sobre a vida cristã compartilhada: oração, leitura bíblica e convivência em comunidade e em casa."
+        "titulo": "Familiaris Consortio",
+        "autor": "São João Paulo II",
+        "nota": "Exortação apostólica sobre a missão da família cristã no mundo de hoje."
       },
       {
-        "titulo": "O Significado do Casamento",
-        "autor": "Timothy Keller",
-        "nota": "O casamento à luz da Bíblia, com conselhos práticos para casais em qualquer fase."
+        "titulo": "Teologia do Corpo",
+        "autor": "São João Paulo II",
+        "nota": "Catequeses sobre o amor humano, o corpo e o casamento no plano de Deus."
       },
       {
-        "titulo": "As Cinco Linguagens do Amor",
-        "autor": "Gary Chapman",
-        "nota": "Ajuda a entender como cada pessoa da família demonstra e recebe amor."
-      },
-      {
-        "titulo": "Pastoreando o Coração da Criança",
-        "autor": "Tedd Tripp",
-        "nota": "Orientação bíblica para pais que querem educar os filhos olhando para o coração, não só para o comportamento."
-      }
-    ]
-  },
-  {
-    "grupo": "Para as crianças",
-    "itens": [
-      {
-        "titulo": "Você é Especial",
-        "autor": "Max Lucado",
-        "nota": "Fábula ilustrada sobre o valor que cada criança tem aos olhos de Deus."
+        "titulo": "Amoris Laetitia",
+        "autor": "Papa Francisco",
+        "nota": "Exortação apostólica sobre o amor na família, com um capítulo inteiro dedicado ao hino da caridade de São Paulo."
       }
     ]
   }

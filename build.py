@@ -90,7 +90,7 @@ def layout(path, titulo, descricao, corpo, *, atual="", og_tipo="website", og_im
 {corpo}
 </div></main>
 <footer class="site gutter"><div class="col">
-  <span>Textos bíblicos na tradução de João Ferreira de Almeida, Revista e Corrigida.</span>
+  <span>Leituras conforme a Liturgia Diária da Igreja no Brasil; demais textos bíblicos segundo a Bíblia Ave&#8209;Maria.</span>
   <nav aria-label="Rodapé">{foot}<a href="{p('feed.xml')}">RSS</a></nav>
 </div></footer>
 <script src="{p('assets/site.js')}?v={ASSET_V}" defer></script>
@@ -101,6 +101,13 @@ def layout(path, titulo, descricao, corpo, *, atual="", og_tipo="website", og_im
 def share_text(m):
     return f"{m['titulo']}\n\n“{m['versiculo']}” ({m['referencia']})\n\n{abs_(msg_path(m))}"
 
+CORES_LIT = {"verde": "#3f7d4e", "roxo": "#6b3f8f", "branco": "#d9d2c3", "vermelho": "#b3322e", "rosa": "#d98aa6", "preto": "#2a2a2a", "dourado": "#c9a13a"}
+def liturgia_html(m):
+    if not m.get("liturgia"): return ""
+    cor = str(m.get("cor", "")).strip().lower()
+    dot = f'<span class="lit-dot" style="background:{CORES_LIT[cor]}" title="Cor litúrgica: {e(cor)}"></span>' if cor in CORES_LIT else ""
+    return f'<span class="liturgia">{dot}{e(m["liturgia"])}</span>'
+
 def bloco_dia(m, *, titulo_link=True, h="h2"):
     tag = "Hoje" if m["data"] == HOJE else (m.get("tema") or "Mensagem")
     t = f'<a href="{p(msg_path(m))}">{e(m["titulo"])}</a>' if titulo_link else e(m["titulo"])
@@ -109,9 +116,9 @@ def bloco_dia(m, *, titulo_link=True, h="h2"):
     orac = f'<div class="oracao"><p class="label">Oração</p><p>{e(m["oracao"])}</p></div>' if m.get("oracao") else ""
     wa = "https://wa.me/?text=" + __import__("urllib.parse").parse.quote(share_text(m))
     return f"""<article class="day">
-  <div class="day-head"><time class="date" datetime="{m['data']}">{data_longa(m['data'])}</time><span class="tag">{e(tag)}</span></div>
+  <div class="day-head"><div class="day-when"><time class="date" datetime="{m['data']}">{data_longa(m['data'])}</time>{liturgia_html(m)}</div><span class="tag">{e(tag)}</span></div>
   <{h} class="day-title">{t}</{h}>
-  <blockquote>“{e(m['versiculo'])}”<cite>{e(m['referencia'])}</cite></blockquote>
+  <blockquote>“{e(m['versiculo'])}”<cite>{e(m['referencia'])}{(' · ' + e(m['fonte'])) if m.get('fonte') else ''}</cite></blockquote>
   <div class="reflexao"><p class="label">Reflexão</p>{refl}</div>
   {perg}
   {orac}
@@ -269,7 +276,7 @@ def main():
 <div class="prose">
 <p>O {e(NOME)} publica, todos os dias às 6h (horário de Brasília), uma mensagem curta para ser lida em família: um versículo da Bíblia, uma reflexão simples, uma pergunta para conversar juntos e uma oração.</p>
 <p>A ideia é ajudar pais, filhos, avós e netos a começar o dia com a Palavra de Deus, à mesa do café ou a caminho da escola. As mensagens podem ser enviadas pelo WhatsApp com um toque.</p>
-<p>Os textos bíblicos seguem a tradução de João Ferreira de Almeida, Revista e Corrigida. As reflexões são preparadas com a ajuda de inteligência artificial e revisadas pelo responsável pelo site.</p>
+<p>É um projeto católico. O versículo de cada dia é tirado das leituras da missa daquele dia, conforme a Liturgia Diária da Igreja no Brasil; os demais textos bíblicos seguem a Bíblia Ave-Maria. As reflexões e orações são preparadas com a ajuda de inteligência artificial, em sintonia com o ensinamento da Igreja, e revisadas pelo responsável pelo site.</p>
 <p>Para receber as mensagens num leitor de notícias, use o <a href="{p('feed.xml')}">feed RSS</a>.</p>
 </div>"""
     gravar("sobre/index.html", layout("sobre/", "Sobre", "Conheça o Pão Diário em Família: mensagens bíblicas diárias com versículo, reflexão, pergunta e oração para a família.", corpo, atual="sobre/"))
