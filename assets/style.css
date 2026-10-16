@@ -157,3 +157,9 @@ footer.site nav { display: flex; flex-wrap: wrap; gap: 4px 16px; }
 footer.site a { text-decoration: none; color: var(--band-ink); }
 footer.site a:hover { color: var(--dawn); }
 footer.site :focus-visible { outline-color: var(--dawn); }
+
+/* Texto justificado em todos os parágrafos corridos do site */
+.reflexao p, .pergunta p:not(.label), .oracao p:not(.label), .prose p, .book p, .link p, .lead, .note, blockquote {
+  text-align: justify; hyphens: auto; -webkit-hyphens: auto;
+}
+blockquote cite { text-align: left; }
