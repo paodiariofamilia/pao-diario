@@ -197,6 +197,28 @@ def og_image(dest, titulo, verso, ref):
     os.makedirs(os.path.dirname(dest), exist_ok=True); img.save(dest, optimize=True)
     return True
 
+# ---------- capas originais dos livros ----------
+CORES_CAPA = [("#22324a", "#e0a35a"), ("#3d4f3a", "#e9d8a6"), ("#6b2d3a", "#f0c9a0"), ("#8a5a1f", "#f7ead2"),
+              ("#2f4858", "#9fd0c7"), ("#4a3b5c", "#e8c27a"), ("#1f3d3a", "#f2b880")]
+MOTIVOS = [
+    # amanhecer
+    '<path d="M8 78h84"/><path d="M28 78a22 22 0 0 1 44 0"/><path d="M50 44v8M30 52l5 5M70 52l-5 5M18 66h6M76 66h6"/>',
+    # caminho
+    '<path d="M8 50c20-6 30 4 46-2s26-8 38-4"/><path d="M38 96c4-18 22-22 16-34s-2-14 4-14"/><path d="M62 96c-2-14 10-20 4-32s0-16 4-16" opacity=".55"/>',
+    # livro aberto
+    '<path d="M50 40c-10-6-24-8-36-6v44c12-2 26 0 36 6 10-6 24-8 36-6V34c-12-2-26 0-36 6z"/><path d="M50 40v44"/><path d="M22 48c7-1 14 0 20 3M22 58c7-1 14 0 20 3M58 51c6-3 13-4 20-3M58 61c6-3 13-4 20-3" opacity=".6"/>',
+    # casa
+    '<path d="M18 54 50 28l32 26"/><path d="M26 48v34h48V48"/><path d="M44 82V66h12v16"/><path d="M50 42c-2-3-7-3-7 1 0 3 7 7 7 7s7-4 7-7c0-4-5-4-7-1z" opacity=".8"/>',
+    # estrelas
+    '<path d="M30 36l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path d="M66 58l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/><path d="M70 22l1.5 4 4 1.5-4 1.5L70 33l-1.5-4-4-1.5 4-1.5z"/><path d="M14 84h72" opacity=".5"/>',
+]
+def capa(b, grupo, n):
+    bg, ac = CORES_CAPA[n % len(CORES_CAPA)]
+    motivo = MOTIVOS[grupo % len(MOTIVOS)]
+    return (f'<div class="cover" style="--cv-bg:{bg};--cv-ac:{ac}" aria-hidden="true">'
+            f'<svg class="cover-art" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">{motivo}</svg>'
+            f'<span class="cover-t">{e(b["titulo"])}</span><span class="cover-a">{e(b["autor"])}</span></div>')
+
 # ---------- páginas ----------
 def limpar_gerados():
     pasta = os.path.join(RAIZ, "mensagens")
@@ -240,8 +262,12 @@ def main():
 
     # Livros
     grupos = ""
-    for g in livros:
-        cards = "".join(f'<article class="book"><h3>{e(b["titulo"])}</h3><span class="by">{e(b["autor"])}</span><p>{e(b["nota"])}</p></article>' for b in g["itens"])
+    n = 0
+    for gi, g in enumerate(livros):
+        cards = ""
+        for b in g["itens"]:
+            cards += f'<article class="book">{capa(b, gi, n)}<div class="book-txt"><h3>{e(b["titulo"])}</h3><span class="by">{e(b["autor"])}</span><p>{e(b["nota"])}</p></div></article>'
+            n += 1
         grupos += f'<section class="group"><h2 class="sec">{e(g["grupo"])}</h2><div class="books">{cards}</div></section>'
     corpo = f"""<div class="page-head"><span class="eyebrow">Leitura recomendada</span><h1>Livros para crescer na fé</h1><p class="lead">Obras de referência e clássicos cristãos para ler sozinho, a dois ou em família. Indicações sem patrocínio.</p></div>
 {grupos}"""

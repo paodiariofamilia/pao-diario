@@ -130,12 +130,32 @@ blockquote cite { display: block; margin-top: 10px; font-family: var(--font-body
 
 /* Livros: lombadas tipográficas */
 .group { display: flex; flex-direction: column; gap: 14px; }
-.books { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
-.book { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 18px 18px 18px 26px; position: relative; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.book::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; border-radius: 10px 0 0 10px; background: var(--dawn); opacity: .85; }
-.book h3 { margin: 0; font-family: var(--font-verse); font-size: 21px; font-weight: 600; line-height: 1.2; }
+.books { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.book { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; gap: 18px; align-items: flex-start; min-width: 0; }
+.book-txt { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.book h3 { margin: 0; font-family: var(--font-verse); font-size: 21px; font-weight: 600; line-height: 1.2; text-wrap: balance; }
 .book .by { font-size: 14px; font-weight: 700; color: var(--muted); }
 .book p { margin: 4px 0 0; font-size: 15px; line-height: 1.55; }
+
+/* Capas originais: cor e símbolo por grupo, título tipográfico */
+.cover {
+  flex: none; width: 112px; aspect-ratio: 2 / 3; max-width: 100%;
+  background: var(--cv-bg); color: var(--cv-ac);
+  border-radius: 3px 8px 8px 3px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-start; gap: 6px;
+  padding: 14px 10px 10px 16px;
+  box-shadow: 0 1px 2px rgba(15, 20, 30, .18), 0 8px 18px -8px rgba(15, 20, 30, .45);
+  transform: rotate(-1.2deg); transition: transform .25s ease;
+}
+.book:nth-child(even) .cover { transform: rotate(1deg); }
+.book:hover .cover { transform: rotate(0) translateY(-2px); }
+.cover::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: rgba(0, 0, 0, .22); box-shadow: 1px 0 0 rgba(255, 255, 255, .12); }
+.cover::after { content: ""; position: absolute; left: 16px; right: 10px; top: 10px; height: 1px; background: currentColor; opacity: .5; }
+.cover-t { font-family: var(--font-verse); font-weight: 600; font-size: 14px; line-height: 1.12; color: #fbf6ee; text-wrap: balance; position: relative; z-index: 1; margin-top: 4px; }
+.cover-a { font-size: 8.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: currentColor; position: relative; z-index: 1; }
+.cover-art { position: absolute; left: 10px; right: 4px; bottom: 6px; width: calc(100% - 14px); height: auto; opacity: .95; }
+@media (prefers-reduced-motion: reduce) { .cover, .book:nth-child(even) .cover, .book:hover .cover { transition: none; transform: none; } }
+@media (max-width: 420px) { .books { grid-template-columns: 1fr; } .cover { width: 92px; } .cover-t { font-size: 12px; } }
 
 .links { display: flex; flex-direction: column; gap: 12px; }
 .link { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; text-decoration: none; display: flex; flex-direction: column; gap: 2px; }
