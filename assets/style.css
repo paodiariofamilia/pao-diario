@@ -166,3 +166,14 @@ footer.site :focus-visible { outline-color: var(--dawn); }
   text-align: justify; hyphens: auto; -webkit-hyphens: auto;
 }
 blockquote cite { text-align: left; }
+
+/* Canal do WhatsApp */
+.canal { background: var(--band); color: var(--band-ink); border-radius: 14px; padding: clamp(22px, 5vw, 32px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 24px; }
+.canal-txt { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.canal h2 { margin: 0; font-family: var(--font-verse); font-weight: 600; font-size: clamp(22px, 4vw, 27px); line-height: 1.2; text-wrap: balance; color: var(--band-ink); }
+.canal p { margin: 0; font-size: 15px; color: var(--band-muted); text-align: left; }
+.canal-btn { flex: none; display: inline-flex; align-items: center; gap: 10px; background: #25d366; color: #0b2a16; font-weight: 800; font-size: 16px; text-decoration: none; padding: 13px 22px; border-radius: 999px; }
+.canal-btn svg { width: 22px; height: 22px; }
+.canal-btn:hover { background: #1fbe5b; }
+.canal-btn:focus-visible { outline: 3px solid var(--dawn); outline-offset: 3px; }
+@media (max-width: 480px) { .canal-btn { width: 100%; justify-content: center; } }

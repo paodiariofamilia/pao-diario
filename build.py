@@ -91,7 +91,7 @@ def layout(path, titulo, descricao, corpo, *, atual="", og_tipo="website", og_im
 </div></main>
 <footer class="site gutter"><div class="col">
   <span>Leituras conforme a Liturgia Diária da Igreja no Brasil; demais textos bíblicos segundo a Bíblia Ave&#8209;Maria.</span>
-  <nav aria-label="Rodapé">{foot}<a href="{p('feed.xml')}">RSS</a></nav>
+  <nav aria-label="Rodapé">{foot}{f'<a href="{e(SITE["whatsapp_canal"])}" target="_blank" rel="noopener">WhatsApp</a>' if SITE.get("whatsapp_canal") else ''}<a href="{p('feed.xml')}">RSS</a></nav>
 </div></footer>
 <script src="{p('assets/site.js')}?v={ASSET_V}" defer></script>
 </body>
@@ -107,6 +107,17 @@ def liturgia_html(m):
     cor = str(m.get("cor", "")).strip().lower()
     dot = f'<span class="lit-dot" style="background:{CORES_LIT[cor]}" title="Cor litúrgica: {e(cor)}"></span>' if cor in CORES_LIT else ""
     return f'<span class="liturgia">{dot}{e(m["liturgia"])}</span>'
+
+WA_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg>'
+def bloco_canal():
+    url = SITE.get("whatsapp_canal")
+    if not url: return ""
+    return f"""<aside class="canal" aria-label="Canal no WhatsApp">
+  <div class="canal-txt"><span class="eyebrow">Todas as manhãs no seu celular</span>
+  <h2>Receba a mensagem do dia no WhatsApp</h2>
+  <p>Siga o canal Pão Diário em Família e receba o versículo, a reflexão e a oração assim que forem publicados. É gratuito e seu número não aparece para ninguém.</p></div>
+  <a class="canal-btn" href="{e(url)}" target="_blank" rel="noopener">{WA_ICON}<span>Seguir o canal</span></a>
+</aside>"""
 
 def bloco_dia(m, *, titulo_link=True, h="h2"):
     tag = "Hoje" if m["data"] == HOJE else (m.get("tema") or "Mensagem")
@@ -218,6 +229,7 @@ def main():
         hoje = msgs[0]
         corpo = f"""<div class="page-head"><span class="eyebrow">{'Mensagem de hoje' if hoje['data'] == HOJE else 'Mensagem mais recente'}</span><h1 class="sr-only">{e(NOME)}: mensagem bíblica diária para ler em família</h1></div>
 {bloco_dia(hoje, h='h2')}
+{bloco_canal()}
 <section><h2 class="sec">Mensagens anteriores</h2>{lista(msgs[1:8]) or '<p class="note">As próximas mensagens aparecem aqui todos os dias às 6h.</p>'}<a class="more" href="{p('mensagens/')}">Ver todas as mensagens</a></section>"""
     else:
         corpo = '<div class="page-head"><h1>A primeira mensagem chega amanhã às 6h</h1></div>'
@@ -233,6 +245,7 @@ def main():
         pager += "</nav>"
         corpo = f"""<div class="page-head"><a class="eyebrow" href="{p('mensagens/')}" style="text-decoration:none">Mensagens</a></div>
 {bloco_dia(m, titulo_link=False, h='h1')}
+{bloco_canal()}
 {pager}"""
         tem_og = og_image(os.path.join(RAIZ, msg_path(m), "og.png"), m["titulo"], m["versiculo"], m["referencia"])
         gravar(msg_path(m) + "index.html", layout(msg_path(m), f"{m['titulo']} ({m['referencia']})", desc_msg(m), corpo,
