@@ -94,6 +94,7 @@ def layout(path, titulo, descricao, corpo, *, atual="", og_tipo="website", og_im
   <nav aria-label="Rodapé">{foot}{f'<a href="{e(SITE["whatsapp_canal"])}" target="_blank" rel="noopener">WhatsApp</a>' if SITE.get("whatsapp_canal") else ''}<a href="{p('feed.xml')}">RSS</a></nav>
 </div></footer>
 <script src="{p('assets/site.js')}?v={ASSET_V}" defer></script>
+{f'<script data-goatcounter="https://{SITE["goatcounter"]}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>' if SITE.get("goatcounter") else ''}
 </body>
 </html>
 """
@@ -116,7 +117,7 @@ def bloco_canal():
   <div class="canal-txt"><span class="eyebrow">Todas as manhãs no seu celular</span>
   <h2>Receba a mensagem do dia no WhatsApp</h2>
   <p>Siga o canal Pão Diário em Família e receba o versículo, a reflexão e a oração assim que forem publicados. É gratuito e seu número não aparece para ninguém.</p></div>
-  <a class="canal-btn" href="{e(url)}" target="_blank" rel="noopener">{WA_ICON}<span>Seguir o canal</span></a>
+  <a class="canal-btn" href="{e(url)}" target="_blank" rel="noopener" data-goatcounter-click="seguir-canal-whatsapp" data-goatcounter-title="Seguir o canal (botão)">{WA_ICON}<span>Seguir o canal</span></a>
 </aside>"""
 
 def bloco_dia(m, *, titulo_link=True, h="h2"):
@@ -133,7 +134,7 @@ def bloco_dia(m, *, titulo_link=True, h="h2"):
   <div class="reflexao"><p class="label">Reflexão</p>{refl}</div>
   {perg}
   {orac}
-  <div class="actions"><a class="btn" href="{e(wa)}" target="_blank" rel="noopener">Enviar pelo WhatsApp</a><button class="btn" type="button" data-copy="{e(share_text(m))}">Copiar mensagem</button></div>
+  <div class="actions"><a class="btn" href="{e(wa)}" target="_blank" rel="noopener" data-goatcounter-click="enviar-mensagem-whatsapp" data-goatcounter-title="Enviar mensagem pelo WhatsApp">Enviar pelo WhatsApp</a><button class="btn" type="button" data-copy="{e(share_text(m))}" data-goatcounter-click="copiar-mensagem" data-goatcounter-title="Copiar mensagem">Copiar mensagem</button></div>
 </article>"""
 
 def lista(ms):
