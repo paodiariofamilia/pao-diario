@@ -177,3 +177,12 @@ blockquote cite { text-align: left; }
 .canal-btn:hover { background: #1fbe5b; }
 .canal-btn:focus-visible { outline: 3px solid var(--dawn); outline-offset: 3px; }
 @media (max-width: 480px) { .canal-btn { width: 100%; justify-content: center; } }
+
+/* Liturgia de hoje */
+.lit { margin: 0; border-top: 1px solid var(--line); }
+.lit-row { display: grid; grid-template-columns: 12em 1fr; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.lit dt { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.lit dd { margin: 0; font-family: var(--font-verse); font-size: 20px; font-weight: 600; min-width: 0; }
+.lit-cor { display: inline-flex; align-items: center; gap: 10px; }
+.lit-dot-lg { width: 14px; height: 14px; }
+@media (max-width: 480px) { .lit-row { grid-template-columns: 1fr; gap: 2px; } }

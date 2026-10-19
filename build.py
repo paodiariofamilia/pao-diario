@@ -39,7 +39,7 @@ def abs_(path=""): return f"{URL}/{path}"
 def msg_path(m): return f"mensagens/{m['data']}/"
 
 ICONE = '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 22h24" stroke-linecap="round"/><path d="M9 22a7 7 0 0 1 14 0"/><path d="M16 8v3M8.2 11.2l2 2M23.8 11.2l-2 2M5 16.5h2.5M27 16.5h-2.5" stroke-linecap="round"/></svg>'
-MENU = [("", "Início"), ("mensagens/", "Mensagens"), ("livros/", "Livros"), ("links/", "Links úteis"), ("sobre/", "Sobre")]
+MENU = [("", "Início"), ("liturgia/", "Liturgia"), ("mensagens/", "Mensagens"), ("livros/", "Livros"), ("links/", "Links úteis"), ("sobre/", "Sobre")]
 
 def layout(path, titulo, descricao, corpo, *, atual="", og_tipo="website", og_img=None, jsonld=None, faixa="", folha=True):
     titulo_full = NOME if titulo == NOME else f"{titulo} · {NOME}"
@@ -285,6 +285,33 @@ def main():
 {grupos}"""
     gravar("links/index.html", layout("links/", "Links úteis para ler e estudar a Bíblia", "Sites e aplicativos confiáveis para ler, ouvir e estudar a Bíblia em português.", corpo, atual="links/"))
 
+    # Liturgia de hoje
+    LIT_URL = "https://liturgia.cancaonova.com/pb/"
+    com_lit = [m for m in msgs if m.get("evangelho")]
+    if com_lit:
+        L = com_lit[0]
+        cor = str(L.get("cor", "")).strip().lower()
+        dot = f'<span class="lit-dot lit-dot-lg" style="background:{CORES_LIT[cor]}"></span>' if cor in CORES_LIT else ""
+        linhas = [("Primeira leitura", L.get("leitura1")), ("Salmo responsorial", L.get("salmo")), ("Segunda leitura", L.get("leitura2")), ("Evangelho", L.get("evangelho"))]
+        dl = "".join(f'<div class="lit-row"><dt>{e(a)}</dt><dd>{e(b)}</dd></div>' for a, b in linhas if b)
+        info = ""
+        if L.get("tempo"): info += f'<div class="lit-row"><dt>Tempo litúrgico</dt><dd>{e(L["tempo"])}</dd></div>'
+        if cor: info += f'<div class="lit-row"><dt>Cor litúrgica</dt><dd class="lit-cor">{dot}{e(cor.capitalize())}</dd></div>'
+        hoje_txt = "Liturgia de hoje" if L["data"] == HOJE else "Liturgia mais recente"
+        anteriores = "".join(
+            f'<li><a href="{p(msg_path(m))}"><span class="d">{data_curta(m["data"])}</span><span class="t">{e(m.get("liturgia",""))}<span class="r">Evangelho: {e(m["evangelho"])}</span></span></a></li>'
+            for m in com_lit[1:8])
+        corpo = f"""<div class="page-head"><span class="eyebrow">{hoje_txt}</span><h1>{data_longa(L['data'])}</h1><p class="lead" style="text-align:left">{e(L.get('liturgia',''))}</p></div>
+<section><h2 class="sec">O dia na Igreja</h2><dl class="lit">{info}</dl></section>
+<section><h2 class="sec">Leituras da missa</h2><dl class="lit">{dl}</dl>
+<div class="actions" style="margin-top:18px"><a class="btn" href="{LIT_URL}" target="_blank" rel="noopener" data-goatcounter-click="ler-liturgia-completa">Ler as leituras completas</a><a class="btn" href="{p(msg_path(L))}">Rezar em família com a mensagem do dia</a></div>
+<p class="note" style="margin-top:12px">O texto completo das leituras abre no site da Liturgia Diária da Canção Nova.</p></section>
+{f'<section><h2 class="sec">Dias anteriores</h2><ul class="list">{anteriores}</ul></section>' if anteriores else ''}"""
+    else:
+        corpo = '<div class="page-head"><span class="eyebrow">Liturgia de hoje</span><h1>As leituras do dia aparecem aqui às 6h</h1></div>'
+    gravar("liturgia/index.html", layout("liturgia/", "Liturgia de hoje: leituras, salmo e Evangelho do dia",
+           "Quais são as leituras da missa de hoje: primeira leitura, salmo, Evangelho, tempo litúrgico e cor litúrgica do dia.", corpo, atual="liturgia/"))
+
     # Sobre
     corpo = f"""<div class="page-head"><span class="eyebrow">Sobre</span><h1>Sobre o {e(NOME)}</h1></div>
 <div class="prose">
@@ -301,7 +328,7 @@ def main():
 
     # sitemap, robots, feed
     ult = msgs[0]["data"] if msgs else HOJE
-    urls = [("", ult, "daily", "1.0"), ("mensagens/", ult, "daily", "0.8"), ("livros/", None, "monthly", "0.6"), ("links/", None, "monthly", "0.5"), ("sobre/", None, "yearly", "0.4")]
+    urls = [("", ult, "daily", "1.0"), ("liturgia/", ult, "daily", "0.9"), ("mensagens/", ult, "daily", "0.8"), ("livros/", None, "monthly", "0.6"), ("links/", None, "monthly", "0.5"), ("sobre/", None, "yearly", "0.4")]
     urls += [(msg_path(m), m["data"], "yearly", "0.7") for m in msgs]
     sm = "".join(f"<url><loc>{abs_(u)}</loc>{f'<lastmod>{lm}</lastmod>' if lm else ''}<changefreq>{cf}</changefreq><priority>{pr}</priority></url>" for u, lm, cf, pr in urls)
     gravar("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
